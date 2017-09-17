@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>路由器*智能硬件</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <style>
+        body {
+            background: #f5f5f5;
+        }
+
+        .container {
+            margin-bottom: 10px;
+        }
+
+        .foot a {
+            color: grey;
+            text-decoration: none;
+        }
+
+        .foot a:hover {
+            color: orange;
+        }
+
+        .foot-links ul {
+            padding: 0px;
+            list-style: none;
+        }
+
+        .foot-links ul li {
+            margin-top: 10px;
+        }
+
+        .foot-links ul li a {
+            text-decoration: none;
+            color: grey;
+        }
+
+        .foot-links ul li a:hover {
+            color: orange;
+        }
+
+        .foot-links-right a {
+            color: orange;
+            text-decoration: none;
+            border: 1px solid orange;
+        }
+
+        .foot-links-right a:hover {
+            background-color: orange;
+            color: white;
+        }
+
+        .foot-nav {
+            padding: 0;
+        }
+
+        .foot-nav a {
+            border-right: 1px solid lightgray;
+            color: grey;
+            padding: 3px !important;
+        }
+
+        .foot-nav a:hover {
+            color: orange;
+        }
+
+        .look-a a {
+            color: orange;
+            text-decoration: none;
+        }
+
+        .look-a {
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+
+        .sort a {
+            text-decoration: none;
+            color: grey;
+        }
+
+        .sort a:hover {
+            text-decoration: none;
+            color: grey;
+        }
+    </style>
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <script>
+        $(function () {
+            $('[data-toggle=hover]').parent().on('mouseenter mouseleave', function () {
+                $(this).toggleClass('open');
+            });
+            /* $('[data-toggle=hover]').parent().hover(function () {
+             $(this).addClass('open');
+             },function () {
+             $(this).removeClass('open');
+             })*/
+            var enterTimeout = [], leaveTimeout = [];
+            $(document).off('click.bs.collapse.data-api', '[data-toggle="collapse"]');
+            $('[data-collapse-trigger=hover]').hover(function () {
+                var i = $(this);
+                var index = Number(i.data('id'));
+                clearTimeout(leaveTimeout[index]);
+                clearTimeout(enterTimeout[index]);
+                enterTimeout[index] = setTimeout(function () {
+                    var target = i.data('target');
+                    $(target).collapse('show');
+                }, 350);
+            }, function () {
+                var i = $(this);
+                var index = Number(i.data('id'));
+                clearTimeout(enterTimeout[index]);
+                clearTimeout(leaveTimeout[index]);
+                leaveTimeout[index] = setTimeout(function () {
+                    var target = i.data('target');
+                    $(target).collapse('hide');
+                }, 350);
+            });
+        })
+    </script>
+</head>
+<body>
+<!--导航一-->
+<nav class="nav navbar-inverse">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li><a href="">小米商城</a></li>
+            <li><a href="">MIUI</a></li>
+            <li><a href="">米聊</a></li>
+            <li><a href="">游戏</a></li>
+            <li><a href="">多看阅读</a></li>
+            <li><a href="">云服务</a></li>
+            <li><a href="">金融</a></li>
+            <li><a href="">小米商城手机版</a></li>
+            <li><a href="">问题反馈</a></li>
+            <li><a href="">Select Region</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li id="denglu" style="display: none"><a href="../login/login.html">登录</a></li>
+            <li id="zhuce" style="display: none"><a href="../zhuce/01/xiaomi.html">注册</a></li>
+            <li style="display: block" id="myID" role="presentation" class="dropdown myID">
+                <a href="" class="dropdown-toggle" data-toggle="hover">qwer</a>
+                <ul class="dropdown-menu dropdown-menu-right" style="text-align: center;padding:10px 10px;">
+                    <li><a href="../center/selfcenter.html">个人中心</a></li>
+                    <li><a href="">评价晒单</a></li>
+                    <li><a href="">我的喜欢</a></li>
+                    <li><a href="../xiaomizhanghao/zhanghao.html">小米账户</a></li>
+                    <li id='reset'><a href="../xiaomishouye/01.html">退出登录</a></li>
+                </ul>
+            </li>
+            <li><a href="">消息通知</a></li>
+            <li style="display: block" id="mydingdan"><a href="">我的订单</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" href="" data-toggle="hover">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>购物车
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" style="width: 400px;min-height: 100px">
+                    <p class="text-center" style="margin-top: 30px">购物车中还没有商品，赶紧选购吧</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!--导航二-->
+<nav class="navbar" style="background: white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-1">
+                <div class="navbar-header">
+                    <a href="">
+                        <img src="img/logo.png" alt="" style="width: 50px;height: 50px">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <ul class="nav navbar-nav" id="nav-collapse">
+                    <li>
+                        <a href="#mi-phone" data-toggle="collapse" data-id="0" data-collapse-trigger="hover"
+                           data-target="#mi-phone">小米手机</a>
+                    </li>
+                    <li>
+                        <a href="#red-mi" data-toggle="collapse" data-id="1" data-collapse-trigger="hover"
+                           data-target="#red-mi">红米</a>
+                    </li>
+                    <li><a href="">平板</a></li>
+                    <li><a href="">笔记本</a></li>
+                    <li><a href="">电视</a></li>
+                    <li><a href="">盒子</a></li>
+                    <li><a href="">影音</a></li>
+                    <li><a href="">路由器</a></li>
+                    <li><a href="">智能硬件</a></li>
+                    <li><a href="">服务</a></li>
+                    <li><a href="">社区</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <div class="navbar-form">
+                    <div class="input-group ">
+                        <input class="form-control" type="text">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="mi-phone" class="collapse col-lg-12  text-center">
+        <div class="col-lg-2">
+            <img src="img/mi6.png" alt="" style="width: 150px;height: 100px">
+            <p>小米6</p>
+            <p>2499起</p>
+        </div>
+        <div class="col-lg-2 ">
+            <img src="img/mi6.png" alt="" style="width: 150px;height: 100px">
+            <p>小米6</p>
+            <p>2499起</p>
+        </div>
+        <div class="col-lg-2 ">
+            <img src="img/mi6.png" alt="" style="width: 150px;height: 100px">
+            <p>小米6</p>
+            <p>2499起</p>
+        </div>
+        <div class="col-lg-2">
+            <img src="img/mi6.png" alt="" style="width: 150px;height: 100px">
+            <p>小米6</p>
+            <p>2499起</p>
+        </div>
+        <div class="col-lg-2">
+            <img src="img/mi6.png" alt="" style="width: 150px;height: 100px">
+            <p>小米6</p>
+            <p>2499起</p>
+        </div>
+        <div class="col-lg-2">
+            <img src="img/mi6.png" alt="" style="width: 150px;height: 100px">
+            <p>小米6</p>
+            <p>2499起</p>
+        </div>
+    </div>
+    <div id="red-mi" class="collapse col-lg-12  text-center">
+        <div class="col-lg-2">
+            <img src="img/hongmi.png" alt="" style="width: 150px;height: 100px">
+            <p>小米6</p>
+            <p>2499起</p>
+        </div>
+        <div class="col-lg-2 ">
+            <img src="img/mi6.png" alt="" style="width: 150px;height: 100px">
+            <p>小米6</p>
+            <p>2499起</p>
+        </div>
+        <div class="col-lg-2 ">
+            <img src="img/mi6.png" alt="" style="width: 150px;height: 100px">
+            <p>小米6</p>
+            <p>2499起</p>
+        </div>
+        <div class="col-lg-2">
+            <img src="img/mi6.png" alt="" style="width: 150px;height: 100px">
+            <p>小米6</p>
+            <p>2499起</p>
+        </div>
+        <div class="col-lg-2">
+            <img src="img/mi6.png" alt="" style="width: 150px;height: 100px">
+            <p>小米6</p>
+            <p>2499起</p>
+        </div>
+        <div class="col-lg-2">
+            <img src="img/mi6.png" alt="" style="width: 150px;height: 100px">
+            <p>小米6</p>
+            <p>2499起</p>
+        </div>
+    </div>
+</nav>
+<!--路径导航-->
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="01.html">首页</a></li>
+        <li><a href="">所有商品</a></li>
+        <li class="active">路由器/智能硬件</li>
+    </ol>
+</div>
+<!--商品类别-->
+<div class="container-fluid" style="background: white;margin-bottom: 10px">
+    <div class="container sort">
+        <div class="row" style="border-bottom:1px solid grey;padding: 10px ">
+            <div class="col-lg-2">
+                分类：<a href="" style="margin-left: 20px">全部</a>
+            </div>
+            <div class="col-lg-1 text-center">
+                <a href="">路由器</a>
+            </div>
+            <div class="col-lg-2 text-center">
+                <a href="">路由器配件</a>
+            </div>
+            <div class="col-lg-1 text-center">
+                <a href="">净化器</a>
+            </div>
+            <div class="col-lg-2 text-center">
+                <a href="">净水器</a>
+            </div>
+            <div class="col-lg-1 text-center">
+                <a href="">热水器</a>
+            </div>
+            <div class="col-lg-3 ">
+                <a href="#all-more" data-toggle="collapse" class="pull-right">更多<span
+                        class="glyphicon glyphicon-chevron-down"></span>
+                </a>
+            </div>
+        </div>
+        <div class="row collapse" id="all-more" style="margin-left: 70px">
+            <div class="row">
+                <div class="col-lg-2">
+                    <a href="">相机</a>
+                </div>
+                <div class="col-lg-2">
+                    <a href="">相机</a>
+                </div>
+                <div class="col-lg-2">
+                    <a href="">相机</a>
+                </div>
+                <div class="col-lg-2">
+                    <a href="">相机</a>
+                </div>
+                <div class="col-lg-2">
+                    <a href="">相机</a>
+                </div>
+                <div class="col-lg-2">
+                    <a href="">相机</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="row" style="padding: 10px ">
+            <div class="col-lg-2">
+                分类：<a href="" style="margin-left: 20px">品牌</a>
+            </div>
+            <div class="col-lg-1 text-center">
+                <a href="">智米</a>
+            </div>
+            <div class="col-lg-2 text-center">
+                <a href="">小方</a>
+            </div>
+            <div class="col-lg-1 text-center">
+                <a href="">米家</a>
+            </div>
+            <div class="col-lg-2 text-center">
+                <a href="">小蚁</a>
+            </div>
+            <div class="col-lg-1 text-center">
+                <a href="">小米</a>
+            </div>
+            <div class="col-lg-3 ">
+                <a href="" class="pull-right">更多<span class="glyphicon glyphicon-chevron-down"></span></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--标签页-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-11">
+            <ul id="mytab1" class="nav nav-tabs ">
+                <li class="active"><a href="#hot" data-toggle="tab">推荐</a></li>
+                <li><a href="#film" data-toggle="tab">新品</a></li>
+                <li><a href="#computer" data-toggle="tab">价格</a></li>
+                <li><a href="#home" data-toggle="tab">评论最多</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="tab-content">
+            <div class="container tab-pane active" id="hot">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="col-lg-12" style="height: 115px">
+                            <h5>小白照相机</h5>
+                            <span class="text-danger">379元</span>
+                            <img class=" pull-right" src="img/xiaobai.jpg" alt=""
+                                 style="height: 100px;position:relative;top: -50px;">
+                        </div>
+                        <div class="col-lg-12" style="height: 115px; float: right">
+                            <h3 class="text-center">
+                                <a href="more.html" style="text-decoration: none;color: black">浏览更多<span
+                                        class="glyphicon glyphicon-chevron-right"></span></a>
+                            </h3>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="container tab-pane" id="film">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/4a.png" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/4a.png" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/4a.png" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/4a.png" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/4a.png" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/4a.png" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/4a.png" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="col-lg-12" style="height: 115px">
+                            <h5>小白照相机</h5>
+                            <span class="text-danger">379元</span>
+                            <img class=" pull-right" src="img/xiaobai.jpg" alt=""
+                                 style="height: 100px;position:relative;top: -50px;">
+                        </div>
+                        <div class="col-lg-12" style="height: 115px; float: right">
+                            <h3 class="text-center">
+                                <a href="more.html" style="text-decoration: none;color: black">浏览更多<span
+                                        class="glyphicon glyphicon-chevron-right"></span></a>
+                            </h3>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="container tab-pane" id="computer">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/air.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="col-lg-12" style="height: 115px">
+                            <h5>小白照相机</h5>
+                            <span class="text-danger">379元</span>
+                            <img class=" pull-right" src="img/xiaobai.jpg" alt=""
+                                 style="height: 100px;position:relative;top: -50px;">
+                        </div>
+                        <div class="col-lg-12" style="height: 115px; float: right">
+                            <h3 class="text-center">
+                                <a href="more.html" style="text-decoration: none;color: black">浏览更多<span
+                                        class="glyphicon glyphicon-chevron-right"></span></a>
+                            </h3>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="container tab-pane" id="home">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/clear.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/clear.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/clear.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/clear.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/clear.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/clear.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <img class="img-thumbnail" src="img/clear.jpg" alt="">
+                        <div class="text-center" style="width: 230px;">
+                            <h5>小米笔记本Air 13.3" i7处理器</h5>
+                            <p class="text-muted" style="font-size:10px "> inter酷睿i7处理器8G内存+256G</p>
+                            <p class="text-danger">5899元</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="col-lg-12" style="height: 115px">
+                            <h5>小白照相机</h5>
+                            <span class="text-danger">379元</span>
+                            <img class=" pull-right" src="img/xiaobai.jpg" alt=""
+                                 style="height: 100px;position:relative;top: -50px;">
+                        </div>
+                        <div class="col-lg-12" style="height: 115px; float: right">
+                            <h3 class="text-center">
+                                <a href="more.html" style="text-decoration: none;color: black">浏览更多<span
+                                        class="glyphicon glyphicon-chevron-right"></span></a>
+                            </h3>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--底部-->
+<div class="container">
+    <div class="row" style="border-bottom: 1px solid lightgray">
+        <div class="col-lg-3 foot">
+            <h4 class="text-center">
+                <a href="">
+                    <span class="glyphicon glyphicon-wrench"></span>预约维修服务
+                </a>
+            </h4>
+        </div>
+        <div class="col-lg-3 foot">
+            <h4 class="text-center">
+                <a href="">
+                    <span class="glyphicon glyphicon-wrench"></span>7天无理由退货
+                </a>
+            </h4>
+        </div>
+        <div class="col-lg-3 foot">
+            <h4 class="text-center">
+                <a href="">
+                    <span class="glyphicon glyphicon-wrench"></span>15天免费换货
+                </a>
+            </h4>
+        </div>
+        <div class="col-lg-3 foot">
+            <h4 class="text-center">
+                <a href="">
+                    <span class="glyphicon glyphicon-wrench"></span>满150元包邮
+                </a>
+            </h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9 foot-links">
+            <div class="col-lg-2" style="padding: 40px 0">
+                <p>帮助中心</p>
+                <ul>
+                    <li><a href="">账户管理</a></li>
+                    <li><a href="">购物指南</a></li>
+                    <li><a href="">订单操作</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2" style="padding: 40px 0">
+                <p>服务支持</p>
+                <ul>
+                    <li><a href="">售后政策</a></li>
+                    <li><a href="">自助服务</a></li>
+                    <li><a href="">相关下载</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2" style="padding: 40px 0">
+                <p>线下门店</p>
+                <ul>
+                    <li><a href="">小米之家</a></li>
+                    <li><a href="">服务网点</a></li>
+                    <li><a href="">零售网点</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2" style="padding: 40px 0">
+                <p>关于小米</p>
+                <ul>
+                    <li><a href="">了解小米</a></li>
+                    <li><a href="">加入小米</a></li>
+                    <li><a href="">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2" style="padding: 40px 0">
+                <p>关注我们</p>
+                <ul>
+                    <li><a href="">新浪微博</a></li>
+                    <li><a href="">小米部落</a></li>
+                    <li><a href="">官方微信</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2" style="padding: 40px 0">
+                <p>特色服务</p>
+                <ul>
+                    <li><a href="">F 码通道</a></li>
+                    <li><a href="">礼物码</a></li>
+                    <li><a href="">防伪查询</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-3 foot-links-right">
+            <div class="text-center">
+                <h3 style="color: orange">400-100-5678</h3>
+                <p>周一至周日 8:00-18:00</p>
+                <p>（仅收市话费）</p>
+                <a href="" class="text-center btn" style="">
+                    <span class="glyphicon glyphicon-envelope"></span>24小时在线客服
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--底部导航-->
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-1">
+                <img src="img/logo.png" alt="" style="width: 57px;height: 57px">
+            </div>
+            <div class="col-lg-7 foot-nav">
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="">小米商城</a></li>
+                        <li><a href="">MIUI</a></li>
+                        <li><a href="">米聊</a></li>
+                        <li><a href="">多看书城</a></li>
+                        <li><a href="">小米路由器</a></li>
+                        <li><a href="">视频通话</a></li>
+                        <li><a href="">小米天猫店</a></li>
+                        <li><a href="">小米淘宝直营店</a></li>
+                        <li><a href="">隐私政策</a></li>
+                        <li><a href="" style="border: none">Select Region</a></li>
+                    </ul>
+                </div>
+                <p style="color: grey;font-size: small;margin: 0">
+                    ©mi.com 京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号
+                </p>
+                <p style="color: grey;font-size: small;margin: 0">
+                    违法和不良信息举报电话：185-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <img src="img/truste.png" alt="" style="width: 85px;height: 28px">
+                <img src="img/v-logo-2.png" alt="">
+                <img src="img/v-logo-1.png" alt="">
+                <img src="img/v-logo-3.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

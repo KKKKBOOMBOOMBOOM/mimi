@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../bootstrap.css">
+    <script src="../../jquery.js"></script>
+    <script src="localStage.js"></script>
+    <script src="../../bootstrap.js"></script>
+    <style>
+        .header, h3 {
+            text-align: center;
+        }
+
+        #img2 {
+            width: 50px;
+            height: 50px;
+        }
+
+        #yanzheng {
+            height: 34px;;
+        }
+
+        #tips {
+
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <form action="">
+                <div class="header form-group">
+                    <img id="img2" src="img/xiaomi.png" alt="">
+                </div>
+                <div class="form-group">
+                    <h3>注册小米账号</h3>
+                </div>
+                <div class="form-group">
+                    <label>国家/地区</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" value="中国" id="country-input">
+                  <span id="country-btn" class=" btn btn-default dropdown-toggle btn-md input-group-addon"
+                        data-toggle="dropdown">
+                    <span class="caret" id="showcountry"></span>
+                  </span>
+                        <div class="dropdown-menu" style="width: 100%;max-height: 150px;overflow-y: auto;" id="country">
+
+                        </div>
+                    </div>
+                    <p class="help-block">成功注册帐号后，国家/地区将不能被修改</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="">手机号码</label>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button id="global-roaming" class=" btn btn-default dropdown-toggle btn-md"
+                                    data-toggle="dropdown">
+                                +86<span class="caret"></span>
+                            </button>
+
+                        </div>
+                        <input id="phone" type="text" class="form-control" placeholder="请输入手机号码">
+                    </div>
+                    <div class="col-lg-12 " id="tips"></div>
+                </div>
+                <div class="form-group">
+                    <label for="" style="display: block">手机验证码</label>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <input id="yzcode" class="form-control col-lg-2" type="text" placeholder="请输入手机验证码">
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="button" class="btn btn-block" id="getcode">获取手机验证码</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <a type="submit" class="btn btn-warning btn-block" id="zhuce">立即注册</a>
+                </div>
+                <div class="form-group">
+                    <p>注册帐号即表示您同意并愿意遵守小米 <strong>用户协议</strong>和 <strong>隐私政策</strong></p>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#showcountry').click(function () {
+            if (clickno) {
+                $('#country').show();
+            } else {
+                $('#country').hide();
+            }
+            clickno = !clickno;
+        });
+
+        $.getJSON('country.json', function (data) {
+            var html = '';
+            for (category in data) {
+                html += '<h4>' + category + '</h4>';
+                html += '<ul>';
+                for (var i = 0, len = data[category].length; i < len; i++) {
+                    html += '<li class="list-group-item a" data-num=' + data[category][i].N + '><a class="" href="#"  data-num=' + data[category][i].N + '>' + data[category][i].C + '</a></li>'
+                }
+                html += '</ul>'
+            }
+            $("#country").html(html).find('.a').on('click', function () {
+                var val = $(this).text();
+                $('#country-input').val(val);
+                $('#country').hide();
+                clickno = true;
+                $('#global-roaming').html($(this).data('num'));
+            });
+        });
+    });
+
+</script>
+<script>
+    $("#phone").on("blur", function () {
+        checkSubmitMobil();
+    });
+    function checkSubmitMobil() {
+        if ($('#phone').val() == "") {
+            $("#tips").html("<p style='color:red;'>手机号码不能为空！</p>");
+            $("#phone").focus();
+            return false;
+        }
+        if (!$("#phone").val().match(/^(((1[3-8][0-9]{1})|159|153)+\d{8})$/)) {
+            $("#tips").html("<p style='color:red;'>手机号码格式错误！</p>");
+            $("#phone").focus();
+            return false;
+        }
+        else {
+            $("#tips").html("<p style='color: green;'>手机号码正确！</p>");
+            return true;
+        }
+    }
+    var random = 0;
+    $('#getcode').on('click', function () {
+
+        var tel = $('#phone').val();
+
+        random = four(Math.round(Math.random() * 9999));
+        console.log(random.toString());
+        var param = {
+            no: random.toString()
+        };
+        $.ajax({
+            url: 'http://sms.market.alicloudapi.com/singleSendSms',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                ParamString: JSON.stringify(param),
+                RecNum: tel,
+                SignName: '林4k',
+                TemplateCode: 'SMS_94695065'
+            },
+            headers: {
+                Authorization: 'APPCODE ea36f9232d1d40fca4e002295b00d829'
+            }
+        }).done(function (data) {
+        });
+        console.log(random);
+
+        $('#zhuce').click(function () {
+            if (random == $('#yzcode').val()) {
+                var user = {
+                    phone: $("#phone").val()
+                };
+                store.add('User', user);
+                window.location.replace('zhuce2.html');
+            } else {
+                alert('登录失败');
+                return false
+
+            }
+        })
+    });
+
+
+    function four(num) {
+        var str = num.toString();
+        var len = str.length;
+        if (len < 4) {
+            for (var i = 0; i < 4 - len; i++) {
+                str = '0' + str;
+            }
+        }
+        return str;
+    }
+
+    $(function () {
+
+    });
+</script>
+</body>
+</html>

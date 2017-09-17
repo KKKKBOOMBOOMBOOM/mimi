@@ -1,0 +1,55 @@
+#head div{
+  float: left;
+  margin-right: 20px;
+}
+#head h3{
+  margin-top: 30px;
+  margin-bottom: 0;
+}
+#login{
+  background: white;
+  min-height: 500px;
+}
+#login a{
+  text-decoration: none;
+  color: gray;
+}
+
+#tab1 input{
+  margin: 10px;
+}
+#tab1 button{
+  margin: 10px;;
+  background-color: orange;
+  color: white;
+}
+.another{
+  width: 100%;
+}
+.another img{
+  width: 30px;
+  height: 30px;
+}
+.another a{
+  display: inline-block;
+  text-align: center;
+  margin: 10px 15px;
+}
+#tab2 img{
+  margin: 20px;
+}
+#tab2 span{
+  color: orange;
+}
+.org{
+  color: orange;
+}
+.bgi{
+  width: 100%;
+  height: 558px;
+  position: absolute;
+  left: 0;
+  top: 80px;
+  background-repeat: no-repeat;
+  background-position:  center;
+}

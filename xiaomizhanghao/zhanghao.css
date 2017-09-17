@@ -1,0 +1,119 @@
+body{
+  background-color: #f8f8f8;
+
+}
+.head{
+  margin-top: 70px;
+  margin-bottom: 20px;
+}
+.head a{
+  text-decoration: none;
+  color: gray;
+}
+.photo{
+  position: absolute;
+  top:-15px;
+  right:80px;
+}
+.photo img{
+  width: 80px;
+  height: 80px;
+  border-radius:50%;
+}
+.photo p{
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+#progress{
+  height: 5px;
+  margin-top: 30px;
+}
+#safe,#information,#service{
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 15px ;
+  margin:10px auto;
+}
+#safe-lv{
+  height: 70px;
+  border-bottom: 1px solid grey;
+}
+#lock,#email,#phone,#sercet{
+  height: 100px;
+  margin-top: 10px;
+  border-bottom: 1px solid grey;
+  margin-left: 40px!important;
+  margin-right: 40px;
+}
+#mi-sercet{
+  height: 100px;
+  margin-top: 10px;
+  border-top: 1px solid grey;
+  margin-left: 40px!important;
+  margin-right: 40px;
+}
+#information{
+  min-height: 400px;
+}
+#information img{
+  width: 80px;
+  height: 80px;
+  border-radius:50%;
+  margin-left: 110px;
+}
+#information p a{
+ padding-left: 70px;
+  text-decoration: none;
+}
+#ziliao{
+  margin-top: 30px;
+}
+#ziliao .row{
+  border-bottom: 1px solid gray;
+}
+.footer{
+  margin-top: 40px;
+}
+.footer a{
+  margin-right: 20px;
+  padding-right: 10px;
+  border-right: 1px solid black;
+  color: gray;
+  text-decoration: none;
+}
+.icon_sv {
+  background: url(https://account.xiaomi.com/static/res/b52bef2/account-static/respassport/acc-2014/img/icon_service.png) no-repeat;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  display: block;
+}
+.sv5{
+  background-position: -160px 0;
+}
+.sv9{
+  background-position: -320px 0;
+}
+.sv4{
+  background-position: -120px 0;
+}
+.sv8{
+  background-position: -280px 0;
+}
+.sv3{
+  background-position:-80px 0;
+}
+.sv1{
+  background-position: 0px 0;
+}
+.sv6{
+  background-position: -200px 0;
+}
+.sv2{
+  background-position: -40px 0;
+}
+.sv7{
+  background-position: -240px 0;
+}
+

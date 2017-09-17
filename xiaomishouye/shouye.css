@@ -1,0 +1,172 @@
+.container{
+  margin-bottom: 20px;
+}
+.nav-tabs{
+  border-bottom: none;
+}
+.lunbo img{
+  height: 420px !important;
+}
+.path img{
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+.path span{
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+.path a{
+  color: grey;
+  text-decoration: none;
+}
+.foot a{
+  color: grey;
+  text-decoration: none;
+}
+.foot a:hover{
+  color: orange;
+}
+.foot-links ul{
+  padding: 0px;
+  list-style: none;
+}
+.foot-links ul li{
+  margin-top: 10px;
+}
+.foot-links ul li a{
+  text-decoration: none;
+  color: grey;
+}
+.foot-links ul li a:hover{
+  color: orange;
+}
+.foot-links-right a{
+  color: orange;
+  text-decoration: none;
+  border: 1px solid orange;
+}
+.foot-links-right a:hover {
+  background-color: orange;
+  color: white;
+}
+.foot-nav {
+  padding: 0;
+}
+.foot-nav a{
+  border-right:1px solid lightgray;
+  color: grey;
+  padding: 3px !important;
+}
+.foot-nav a:hover{
+  color: orange;
+}
+.show-list img{
+  height: 60px;
+  width: 80px;
+}
+.show-list {
+  background-color: white;
+  width: 600px;
+  position: absolute;
+  top: 160px;
+  margin-left: 278px;
+  display: none;
+  z-index: 10000;
+}
+.show-list a{
+  background-color: white;
+  color: orange;
+}
+#evaluate .col-lg-3:hover{
+  box-shadow: 5px 5px 5px #888888;
+}
+#myContent1 a,#myContent2 a,#myContent3 a,#myContent4 a{
+  text-decoration: none;
+}
+#myContent1 img,#myContent2 img,#myContent3 img,#myContent4 img{
+  width:200px;
+  height: 142px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 42px;
+}
+#myContent1 li,#myContent2 li,#myContent3 li,#myContent4 li{
+  background-color: lightgray;
+}
+#myContent1 button{
+  border: 1px solid orange;
+  background-color: white;
+  color: orange;
+}
+#myContent1 button:hover{
+  border: none;
+  background-color: orange;
+  color: white
+}
+#myContent2 button{
+  border: 1px solid green;
+  background-color: white;
+  color: green;
+}
+#myContent2 button:hover{
+  border: none;
+  background-color: green;
+  color: white
+}
+#myContent3 button{
+  border: 1px solid red;
+  background-color: white;
+  color: red;
+}
+#myContent3 button:hover{
+  border: none;
+  background-color: red;
+  color: white
+}
+#myContent4 button{
+  border: 1px solid blue;
+  background-color: white;
+  color: blue;
+}
+#myContent4 button:hover{
+  border: none;
+  background-color:blue;
+  color: white
+}
+.myContent1-active {
+  border:2px solid orange;
+  background-color: white;
+}
+.content>div:hover{
+  box-shadow: 2px 2px 2px #888888;
+}
+.mi-star img{
+  width: 160px;
+  height: 160px;
+  margin-left:auto;
+  margin-right: auto;
+}
+.mi-star a{
+  text-decoration: none;
+  color: black;
+}
+.single1,.single2,.single3,.single4{
+  background-color:#fafafa;
+}
+.single1{
+  border-top: 1px solid orange;
+}
+.single2{
+  border-top:1px solid green;
+}
+.single3{
+  border-top:1px solid blue;
+}
+.single4{
+  border-top: 1px solid red;
+}
+.carousel-control.left,.carousel-control.right{
+  background-image: linear-gradient(to right, rgba(0, 0, 0, .0) 0%, rgba(0, 0, 0, .0001) 100%)
+}

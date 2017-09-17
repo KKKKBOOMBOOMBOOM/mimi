@@ -1,0 +1,49 @@
+.dingdan a{
+   color: gray;
+   text-decoration: none;
+ }
+.dingdan a:hover{
+  color: orange;
+  text-decoration: none;
+}
+.foot a{
+  color: grey;
+  text-decoration: none;
+}
+.foot a:hover{
+  color: orange;
+}
+.foot-links ul{
+  padding: 0px;
+  list-style: none;
+}
+.foot-links ul li{
+  margin-top: 10px;
+}
+.foot-links ul li a{
+  text-decoration: none;
+  color: grey;
+}
+.foot-links ul li a:hover{
+  color: orange;
+}
+.foot-links-right a{
+  color: orange;
+  text-decoration: none;
+  border: 1px solid orange;
+}
+.foot-links-right a:hover {
+  background-color: orange;
+  color: white;
+}
+.foot-nav {
+  padding: 0;
+}
+.foot-nav a{
+  border-right:1px solid lightgray;
+  color: grey;
+  padding: 3px !important;
+}
+.foot-nav a:hover{
+  color: orange;
+}
